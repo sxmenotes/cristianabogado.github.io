@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador Móvil — Cristian Muñoz Abogado</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-studio: #0F1012;
+      --bg-panel: #181A1D;
+      --bg-control: #22252A;
+      --border-panel: rgba(255, 255, 255, 0.08);
+      --border-accent: #B85C38;
+      --text-main: #F4F3F0;
+      --text-muted: #8E929A;
+      --terracotta: #B85C38;
+      --terracotta-hover: #D07050;
+      --font-ui: 'Libre Franklin', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    body {
+      font-family: var(--font-ui);
+      background-color: var(--bg-studio);
+      color: var(--text-main);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* TOP TOOLBAR */
+    .toolbar {
+      height: 64px;
+      background: var(--bg-panel);
+      border-bottom: 1px solid var(--border-panel);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.25rem;
+      gap: 1rem;
+      z-index: 100;
+      flex-shrink: 0;
+    }
+
+    .toolbar__brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-badge {
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      background: var(--terracotta);
+      color: #fff;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    .brand-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .brand-title span {
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    /* CONTROLS CENTER */
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .control-group {
+      display: flex;
+      align-items: center;
+      background: var(--bg-control);
+      border: 1px solid var(--border-panel);
+      border-radius: 8px;
+      padding: 2px;
+    }
+
+    select, button {
+      font-family: inherit;
+      color: inherit;
+      background: transparent;
+      border: none;
+      outline: none;
+      cursor: pointer;
+    }
+
+    select {
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      color: var(--text-main);
+      background-color: var(--bg-control);
+    }
+
+    select option {
+      background: var(--bg-panel);
+      color: var(--text-main);
+    }
+
+    .btn-icon {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.45rem 0.75rem;
+      border-radius: 6px;
+      color: var(--text-muted);
+      transition: all 0.15s ease;
+    }
+
+    .btn-icon:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .btn-icon.active {
+      color: #fff;
+      background: var(--terracotta);
+    }
+
+    .btn-icon svg {
+      width: 15px;
+      height: 15px;
+      fill: currentColor;
+    }
+
+    /* RIGHT METRICS & EXTERNAL */
+    .toolbar__right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .resolution-badge {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-panel);
+      padding: 0.35rem 0.65rem;
+      border-radius: 6px;
+      color: var(--terracotta-hover);
+    }
+
+    .btn-external {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: color 0.15s ease;
+    }
+
+    .btn-external:hover {
+      color: var(--terracotta-hover);
+    }
+
+    /* STAGE / VIEWPORT AREA */
+    .stage {
+      flex: 1;
+      overflow: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      background: radial-gradient(circle at center, #181A1E 0%, #0A0B0C 100%);
+      position: relative;
+    }
+
+    /* DEVICE CHASSIS */
+    .device-scaler {
+      transform-origin: center center;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .device-chassis {
+      position: relative;
+      background: #111215;
+      box-shadow: 
+        0 0 0 1px rgba(255, 255, 255, 0.12),
+        0 25px 60px -15px rgba(0, 0, 0, 0.8),
+        0 50px 100px -20px rgba(0, 0, 0, 0.9);
+      transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1), height 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-radius 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* REALISTIC BEZEL MODE */
+    .device-chassis.bezel-on {
+      border: 12px solid #202226;
+      border-radius: 52px;
+      box-shadow: 
+        0 0 0 2px #383B42,
+        0 0 0 4px #121316,
+        0 30px 80px -10px rgba(0, 0, 0, 0.85);
+    }
+
+    .device-chassis.bezel-on.landscape {
+      border-radius: 52px;
+    }
+
+    .device-chassis.bezel-off {
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    /* DYNAMIC ISLAND */
+    .dynamic-island {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 105px;
+      height: 28px;
+      background: #000;
+      border-radius: 20px;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 9px;
+      pointer-events: none;
+      box-shadow: 0 0 1px rgba(255, 255, 255, 0.2);
+    }
+
+    .dynamic-island__cam {
+      width: 11px;
+      height: 11px;
+      background: #0c101a;
+      border-radius: 50%;
+      border: 1px solid #1c2230;
+    }
+
+    .dynamic-island__sensor {
+      width: 8px;
+      height: 8px;
+      background: #080a0e;
+      border-radius: 50%;
+    }
+
+    .device-chassis.bezel-off .dynamic-island {
+      display: none;
+    }
+
+    /* HOME BAR */
+    .home-bar {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 130px;
+      height: 4px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 3px;
+      z-index: 50;
+      pointer-events: none;
+    }
+
+    .device-chassis.bezel-off .home-bar {
+      display: none;
+    }
+
+    /* IFRAME */
+    .device-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #FAFAF8;
+      display: block;
+    }
+
+    /* BOTTOM INFO DRAWER */
+    .quick-tips {
+      position: absolute;
+      bottom: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(24, 26, 29, 0.85);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-panel);
+      padding: 0.5rem 1.25rem;
+      border-radius: 30px;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      pointer-events: none;
+      z-index: 90;
+    }
+
+    .quick-tips strong {
+      color: var(--text-main);
+    }
+
+    @media (max-width: 900px) {
+      .toolbar {
+        flex-wrap: wrap;
+        height: auto;
+        padding: 0.75rem;
+      }
+      .quick-tips {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <header class="toolbar">
+    <div class="toolbar__brand">
+      <span class="brand-badge">Simulator</span>
+      <div class="brand-title">Cristian Muñoz <span>— Mobile Viewport</span></div>
+    </div>
+
+    <div class="controls">
+      <!-- Preset Select -->
+      <div class="control-group">
+        <select id="deviceSelect" aria-label="Seleccionar dispositivo">
+          <option value="393x852" data-name="iPhone 15 / 16 Pro" selected>iPhone 15 / 16 Pro (393 × 852)</option>
+          <option value="430x932" data-name="iPhone 15 Pro Max">iPhone 15 Pro Max (430 × 932)</option>
+          <option value="375x667" data-name="iPhone SE">iPhone SE (375 × 667)</option>
+          <option value="360x780" data-name="Samsung Galaxy S23">Samsung Galaxy S23 (360 × 780)</option>
+          <option value="412x915" data-name="Google Pixel 7">Google Pixel 7 (412 × 915)</option>
+          <option value="768x1024" data-name="iPad Mini">iPad Mini (768 × 1024)</option>
+        </select>
+      </div>
+
+      <!-- Orientation Toggle -->
+      <div class="control-group">
+        <button id="btnOrientation" class="btn-icon" title="Rotar orientación">
+          <svg viewBox="0 0 24 24"><path d="M16.48 2.52c3.27 1.55 5.61 4.72 5.97 8.48h1.5C23.44 4.84 18.29 0 12 0l-.66.03 3.81 3.81 1.33-1.32zM7.52 21.48C4.25 19.94 1.91 16.76 1.55 13H.05C.56 19.16 5.71 24 12 24l.66-.03-3.81-3.81-1.33 1.32z"/></svg>
+          <span id="orientationLabel">Vertical</span>
+        </button>
+      </div>
+
+      <!-- Bezel Toggle -->
+      <div class="control-group">
+        <button id="btnBezel" class="btn-icon active" title="Alternar marco de teléfono">
+          <span>Marco iPhone</span>
+        </button>
+      </div>
+
+      <!-- Zoom / Scale -->
+      <div class="control-group">
+        <select id="scaleSelect" aria-label="Escala de visualización">
+          <option value="fit" selected>Ajustar pantalla</option>
+          <option value="1">100%</option>
+          <option value="0.85">85%</option>
+          <option value="0.75">75%</option>
+          <option value="0.65">65%</option>
+          <option value="0.5">50%</option>
+        </select>
+      </div>
+
+      <!-- Reload -->
+      <button id="btnReload" class="btn-icon" title="Recargar iframe">
+        <svg viewBox="0 0 24 24"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+        <span>Recargar</span>
+      </button>
+    </div>
+
+    <div class="toolbar__right">
+      <div class="resolution-badge" id="resBadge">393 × 852 px</div>
+      <a href="index.html" target="_blank" class="btn-external">
+        <span>Abrir pestaña</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- MAIN STAGE -->
+  <main class="stage" id="stage">
+    <div class="device-scaler" id="scaler">
+      <div class="device-chassis bezel-on" id="chassis" style="width: 393px; height: 852px;">
+        <!-- Dynamic Island -->
+        <div class="dynamic-island">
+          <div class="dynamic-island__sensor"></div>
+          <div class="dynamic-island__cam"></div>
+        </div>
+
+        <!-- The Target Webpage -->
+        <iframe src="index.html" class="device-iframe" id="siteIframe" title="Simulación Móvil de Cristian Muñoz Abogado"></iframe>
+
+        <!-- Home Bar Indicator -->
+        <div class="home-bar"></div>
+      </div>
+    </div>
+
+    <!-- Quick tip toast -->
+    <div class="quick-tips">
+      <span>💡 Puedes interactuar, hacer scroll y probar botones directamente dentro de la pantalla simulada</span>
+    </div>
+  </main>
+
+  <script>
+    const deviceSelect = document.getElementById('deviceSelect');
+    const btnOrientation = document.getElementById('btnOrientation');
+    const orientationLabel = document.getElementById('orientationLabel');
+    const btnBezel = document.getElementById('btnBezel');
+    const scaleSelect = document.getElementById('scaleSelect');
+    const btnReload = document.getElementById('btnReload');
+    const chassis = document.getElementById('chassis');
+    const scaler = document.getElementById('scaler');
+    const resBadge = document.getElementById('resBadge');
+    const siteIframe = document.getElementById('siteIframe');
+    const stage = document.getElementById('stage');
+
+    let currentW = 393;
+    let currentH = 852;
+    let isLandscape = false;
+    let hasBezel = true;
+
+    function updateDimensions() {
+      const [rawW, rawH] = deviceSelect.value.split('x').map(Number);
+      currentW = isLandscape ? rawH : rawW;
+      currentH = isLandscape ? rawW : rawH;
+
+      chassis.style.width = currentW + 'px';
+      chassis.style.height = currentH + 'px';
+
+      resBadge.textContent = `${currentW} × ${currentH} px`;
+
+      if (isLandscape) {
+        chassis.classList.add('landscape');
+        orientationLabel.textContent = 'Horizontal';
+      } else {
+        chassis.classList.remove('landscape');
+        orientationLabel.textContent = 'Vertical';
+      }
+
+      applyScale();
+    }
+
+    function applyScale() {
+      const scaleVal = scaleSelect.value;
+      if (scaleVal === 'fit') {
+        const stageW = stage.clientWidth - 80;
+        const stageH = stage.clientHeight - 80;
+        const chassisTotalW = currentW + (hasBezel ? 24 : 0);
+        const chassisTotalH = currentH + (hasBezel ? 24 : 0);
+
+        const ratioW = stageW / chassisTotalW;
+        const ratioH = stageH / chassisTotalH;
+        let bestFit = Math.min(ratioW, ratioH, 1);
+        bestFit = Math.max(bestFit, 0.35); // Lower bound
+        scaler.style.transform = `scale(${bestFit.toFixed(2)})`;
+      } else {
+        scaler.style.transform = `scale(${scaleVal})`;
+      }
+    }
+
+    deviceSelect.addEventListener('change', updateDimensions);
+
+    btnOrientation.addEventListener('click', () => {
+      isLandscape = !isLandscape;
+      btnOrientation.classList.toggle('active', isLandscape);
+      updateDimensions();
+    });
+
+    btnBezel.addEventListener('click', () => {
+      hasBezel = !hasBezel;
+      btnBezel.classList.toggle('active', hasBezel);
+      btnBezel.querySelector('span').textContent = hasBezel ? 'Marco iPhone' : 'Sin marco';
+      chassis.classList.toggle('bezel-on', hasBezel);
+      chassis.classList.toggle('bezel-off', !hasBezel);
+      applyScale();
+    });
+
+    scaleSelect.addEventListener('change', applyScale);
+
+    btnReload.addEventListener('click', () => {
+      siteIframe.src = siteIframe.src;
+    });
+
+    window.addEventListener('resize', () => {
+      if (scaleSelect.value === 'fit') {
+        applyScale();
+      }
+    });
+
+    // Initial setup
+    updateDimensions();
+  </script>
+</body>
+</html>
