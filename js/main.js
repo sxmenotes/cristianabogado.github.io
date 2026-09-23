@@ -413,7 +413,7 @@ pills.forEach(pill => {
 
     const service = pill.dataset.service;
     asuntoInput.value = servicePlaceholders[service] || `Consulta sobre ${service}`;
-    mensajeInput.placeholder = mensajePlaceholders[service] || 'Cuéntame tu situación...';
+    mensajeInput.placeholder = mensajePlaceholders[service] || 'Describa su situación...';
 
     anime({
       targets: pill,

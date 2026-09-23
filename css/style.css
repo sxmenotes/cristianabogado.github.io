@@ -158,7 +158,26 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .header__logo, .header__logo-mobile {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.95rem;
+  text-decoration: none;
+}
+.header__logo-iso {
+  display: block;
+  height: 44px;
+  width: auto;
+  transition: height var(--transition-med);
+}
+.header__logo-text {
+  display: block;
+  height: 24px;
+  width: auto;
+  transition: height var(--transition-med);
+}
+.header.scrolled .header__logo-iso {
+  height: 38px;
+}
+.header.scrolled .header__logo-text {
+  height: 21px;
 }
 .header__logo-img {
   display: block;
@@ -1403,6 +1422,22 @@ body.menu-open {
 }
 
 @media (max-width: 768px) {
+  .header__logo, .header__logo-mobile {
+    gap: 0.75rem;
+  }
+  .header__logo-iso {
+    height: 36px;
+  }
+  .header__logo-text {
+    height: 19px;
+  }
+  .header.scrolled .header__logo-iso {
+    height: 32px;
+  }
+  .header.scrolled .header__logo-text {
+    height: 17px;
+  }
+
   .header__nav {
     display: none;
     position: fixed;
