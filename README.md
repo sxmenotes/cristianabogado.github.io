@@ -1,9 +1,9 @@
-# Proyecto: Landing Page Estudio Jurídico (Revisión Final v0.1.0)
+# Proyecto: Landing Page Estudio Jurídico (Versión Pública 1.0.0)
 
-Este repositorio contiene la versión de **demostración (Revisión Final v0.1.0)** de una Landing Page diseñada y desarrollada para un estudio jurídico (referenciado como "Muñoz Parejas Abogados"). 
+Este repositorio contiene la versión **Pública v1.0.0** de una Landing Page diseñada y desarrollada a medida para el estudio jurídico "Muñoz Parejas Abogados". 
 
 > **Aviso de Despliegue:**
-> Esta página se ha configurado para ser desplegada en **GitHub Pages** en su estado actual (modo demo) con fines de exhibición y validación.
+> Esta página se encuentra desplegada en producción a través de **GitHub Pages**.
 
 ---
 
@@ -35,15 +35,20 @@ Controlador lógico para la interfaz:
 
 ---
 
-## ⚖️ Consideraciones Legales y Propiedad Intelectual
+## ⚖️ Consideraciones Legales y Propiedad Intelectual (LICENCIA RESTRICTIVA)
 
-Por favor, lee detenidamente el archivo `LICENSE` incluido en este repositorio.
+**PROHIBICIÓN ABSOLUTA DE USO, COPIA O DISTRIBUCIÓN**
 
-**1. Propiedad del Código y Diseño (SV WebDev)**
-Toda la arquitectura, código fuente, CSS, scripts, decisiones de diseño de interfaz (UI) y experiencia de usuario (UX) son propiedad intelectual exclusiva de **Samuel Valenzuela Díaz**. Queda **estrictamente prohibida** la copia, clonación o uso no autorizado de este código.
+Toda la arquitectura, código fuente, hojas de estilo (CSS), scripts (JavaScript), estructura HTML, decisiones de diseño de interfaz (UI), experiencia de usuario (UX) y activos gráficos contenidos en este repositorio son **PROPIEDAD INTELECTUAL EXCLUSIVA Y PRIVADA** de **Samuel Valenzuela Díaz** y de su respectivo cliente ("Muñoz Parejas Abogados").
 
-**2. Propiedad del Cliente**
-Todos los datos, fotografías, logotipo comercial, textos sobre servicios, y cualquier identidad ligada a "Cristian Muñoz Abogado" pertenecen exclusivamente al cliente y se exponen aquí bajo un contexto de demostración, sin vulnerar sus derechos de imagen comercial.
+Queda **ESTRICTAMENTE PROHIBIDO**:
+1. Copiar, clonar, bifurcar (fork) o descargar total o parcialmente este repositorio con fines de uso personal, académico o comercial.
+2. Utilizar cualquier fragmento de código, diseño, estructura, paleta de colores, tipografía o identidad visual de este proyecto en otras páginas web o aplicaciones.
+3. Distribuir, comercializar, sublicenciar, alterar o modificar el código fuente aquí presente.
+
+**Cualquier uso no autorizado, extracción de código o plagio será considerado una violación directa de los derechos de autor y propiedad intelectual, y será perseguido con la máxima severidad legal correspondiente en las jurisdicciones aplicables, sin aviso previo.**
+
+**NADA EN ESTE REPOSITORIO CONSTITUYE CÓDIGO ABIERTO U OPEN SOURCE.** La visibilidad pública de este repositorio no otorga NINGÚN DERECHO DE USO bajo ninguna circunstancia. Por favor, lee detenidamente el archivo `LICENSE` incluido en este repositorio.
 
 ---
 *SV WebDev - Diseño y Desarrollo Web de Alto Impacto*

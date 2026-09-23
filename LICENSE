@@ -1,12 +1,18 @@
-Copyright (c) 2026 Samuel Valenzuela Díaz. Todos los derechos reservados.
+Copyright (c) 2026 Samuel Valenzuela Díaz y Muñoz Parejas Abogados. Todos los derechos reservados.
 
-ADVERTENCIA LEGAL Y CONDICIONES DE USO (VERSIÓN DEMO)
+ADVERTENCIA LEGAL Y PROHIBICIÓN ABSOLUTA DE USO (LICENCIA ESTRICTA)
 
-Esta obra intelectual (código fuente, diseño de interfaz, arquitectura de software, maquetación, estilos y cualquier script asociado) es propiedad exclusiva de Samuel Valenzuela Díaz. Queda ESTRICTAMENTE PROHIBIDA la copia, reproducción, modificación, distribución, exhibición pública, venta, ingeniería inversa o cualquier otro uso comercial o derivado, ya sea total o parcial, de este software sin el consentimiento expreso y por escrito del autor.
+Esta obra intelectual (incluyendo, pero no limitándose a: código fuente, diseño de interfaz (UI), experiencia de usuario (UX), arquitectura de software, maquetación, CSS, scripts, paleta de colores y cualquier otro elemento asociado a este repositorio) es PROPIEDAD EXCLUSIVA Y PRIVADA de Samuel Valenzuela Díaz.
+
+Queda ESTRICTAMENTE PROHIBIDO y penalizado por la ley:
+1. La copia, reproducción, clonación, extracción o descarga total o parcial de este repositorio.
+2. La utilización, modificación, alteración, distribución, exhibición pública, venta, sublicencia, o ingeniería inversa de cualquier parte del código o diseño.
+3. El uso de este proyecto, de sus fragmentos o de su identidad visual para fines personales, académicos, comerciales o de cualquier otra índole.
+
+NADA EN ESTE REPOSITORIO CONSTITUYE CÓDIGO ABIERTO (OPEN SOURCE). 
+El acceso público de lectura a este repositorio NO OTORGA NINGUNA LICENCIA implícita ni explícita de uso, modificación ni comercialización del código o diseño.
 
 DERECHOS DEL CLIENTE
-Todos los activos y contenidos directamente relacionados con el cliente final (incluyendo, pero no limitado a: nombre comercial, logotipos, fotografías, datos de contacto, textos descriptivos, casos y cualquier otra información personal o profesional referida a "Cristian Muñoz Abogado") son propiedad exclusiva del cliente. Esta publicación de ninguna forma transfiere, vulnera ni expone los derechos sobre la imagen o marca del cliente. El propósito de este repositorio en su estado actual es únicamente de DEMOSTRACIÓN TÉCNICA.
+Todos los activos, fotografías, logotipos, información de contacto, textos sobre servicios, y cualquier identidad corporativa referida a "Cristian Muñoz Abogado" o "Muñoz Parejas Abogados" son propiedad intelectual y comercial exclusiva del cliente. Esta publicación no autoriza bajo ningún concepto el uso de su marca o información.
 
-Cualquier infracción a estos términos será perseguida bajo las leyes de propiedad intelectual y derechos de autor aplicables chilenas e internacionales, buscando las máximas reparaciones civiles y penales correspondientes.
-
-El acceso de lectura a este repositorio público no otorga ninguna licencia implícita de uso, modificación ni comercialización del código o diseño.
+Cualquier infracción, plagio o uso no autorizado será considerado un robo de propiedad intelectual y será perseguido con la máxima severidad bajo las leyes de propiedad intelectual y derechos de autor vigentes en Chile y a nivel internacional, exigiendo las máximas reparaciones civiles y penales, sin previo aviso.
