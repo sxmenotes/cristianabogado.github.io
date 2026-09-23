@@ -36,7 +36,7 @@ function openMenu() {
     try {
       anime.remove(nav);
       anime.remove(navLinks);
-    } catch (e) {}
+    } catch (e) { }
   }
 
   savedScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
@@ -100,7 +100,7 @@ function closeMenu(immediate = false) {
     try {
       anime.remove(nav);
       anime.remove(navLinks);
-    } catch (e) {}
+    } catch (e) { }
   }
 
   if (immediate || window.innerWidth > 768 || typeof anime === 'undefined') {
@@ -452,6 +452,7 @@ contactForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const nombre = nombreInput.value.trim();
   const email = emailInput.value.trim();
+  const asunto = asuntoInput.value.trim();
   const mensaje = mensajeInput.value.trim();
 
   let hasError = false;
@@ -478,10 +479,23 @@ contactForm.addEventListener('submit', (e) => {
     return;
   }
 
+  const telefonoAbogado = "56959955547";
+  const textoWhatsapp = `Hola Cristian, mi nombre es *${nombre}*.
+Me contacto por el siguiente asunto: *${asunto}*.
+Mi correo es: ${email}
+
+Mensaje:
+${mensaje}`;
+
+  const urlWhatsapp = `https://wa.me/${telefonoAbogado}?text=${encodeURIComponent(textoWhatsapp)}`;
+
   const origText = submitBtn.innerHTML;
-  submitBtn.innerHTML = '¡Consulta enviada! ✓';
+  submitBtn.innerHTML = '¡Redirigiendo a WhatsApp...!';
   submitBtn.style.background = '#2A2A2A';
   submitBtn.disabled = true;
+
+  // Redirigir a WhatsApp en la misma pestaña para evitar bloqueadores de ventanas emergentes (pop-ups)
+  window.location.href = urlWhatsapp;
 
   setTimeout(() => {
     submitBtn.innerHTML = origText;
@@ -492,7 +506,7 @@ contactForm.addEventListener('submit', (e) => {
     if (active) {
       asuntoInput.value = servicePlaceholders[active.dataset.service] || '';
     }
-  }, 4000);
+  }, 3000);
 });
 
 // =============================================
