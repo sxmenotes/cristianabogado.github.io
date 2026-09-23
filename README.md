@@ -1,6 +1,6 @@
-# Proyecto: Landing Page Estudio Jurídico (VERSIÓN DEMO)
+# Proyecto: Landing Page Estudio Jurídico (Revisión Final v0.1.0)
 
-Este repositorio contiene la versión de **demostración (DEMO v0.0.1)** de una Landing Page diseñada y desarrollada para un estudio jurídico (referenciado como "Cristian Muñoz Abogado"). 
+Este repositorio contiene la versión de **demostración (Revisión Final v0.1.0)** de una Landing Page diseñada y desarrollada para un estudio jurídico (referenciado como "Muñoz Parejas Abogados"). 
 
 > **Aviso de Despliegue:**
 > Esta página se ha configurado para ser desplegada en **GitHub Pages** en su estado actual (modo demo) con fines de exhibición y validación.

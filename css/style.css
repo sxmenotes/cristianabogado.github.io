@@ -1,20 +1,20 @@
 /* =============================================
    PROPUESTA B — STONE & INK
    Cristian Muñoz Abogado
-   Paleta: Blanco roto + Negro tinta + Terracota
+   Paleta: Blanco roto + Azul marino + Dorado jurídico
    ============================================= */
 
 /* --- TOKENS --- */
 :root {
-  --ink: #111111;
-  --ink-mid: #2A2A2A;
-  --ink-light: #4A4A4A;
+  --ink: #1E2A3A;
+  --ink-mid: #2C3A4F;
+  --ink-light: #4A5568;
   --paper: #FAFAF8;
   --paper-warm: #F2EFE9;
-  --paper-dark: #E8E4DC;
-  --terracotta: #B85C38;
-  --terracotta-light: #D07050;
-  --terracotta-muted: #7A3C22;
+  --paper-dark: #E4DDD2;
+  --terracotta: #9A7B2C;
+  --terracotta-light: #C4A445;
+  --terracotta-muted: #6B5520;
   --warm-gray: #8A8078;
   --warm-gray-light: #C0B8AE;
 
@@ -155,7 +155,20 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   align-items: center;
   justify-content: space-between;
 }
-.logo__wordmark { display: flex; flex-direction: column; }
+.header__logo, .header__logo-mobile {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.header__logo-img {
+  display: block;
+  max-height: 50px;
+  width: auto;
+}
+.logo__wordmark {
+  display: flex;
+  flex-direction: column;
+}
 .logo__name {
   font-family: var(--font-headline);
   font-size: 1rem;
@@ -247,9 +260,9 @@ body.menu-open {
    HERO
    ============================================= */
 .hero {
-  padding: 10rem 0 5rem;
+  padding: 8rem 0 4rem;
   background: var(--paper);
-  min-height: 100vh;
+  min-height: 85vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -304,9 +317,12 @@ body.menu-open {
 .hero__image {
   position: absolute;
   inset: 0;
-  background-image: url('lawyer_portrait_fixed.jpg');
+  background-image: url('../assets/images/hero_portrait.png');
   background-size: cover;
   background-position: center 20%;
+}
+.hero__desc {
+  margin-top: var(--spacing-md);
 }
 .hero__desc p {
   font-size: 1rem;
@@ -398,7 +414,7 @@ body.menu-open {
 .about__portrait { position: relative; }
 .about__portrait-ph {
   aspect-ratio: 3/4;
-  background-image: url('lawyer_portrait_fixed.jpg');
+  background-image: url('../assets/images/about_portrait.png');
   background-size: cover;
   background-position: center 20%;
   border: 1px solid var(--paper-dark);
@@ -439,12 +455,13 @@ body.menu-open {
 }
 .areas__grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 1px;
   background: var(--paper-dark);
   border: 1px solid var(--paper-dark);
 }
 .area-card {
+  grid-column: span 2;
   background: var(--paper);
   padding: var(--spacing-xl) var(--spacing-md);
   display: flex;
@@ -459,6 +476,11 @@ body.menu-open {
 .area-card:focus-visible {
   outline: 2px solid var(--terracotta);
   outline-offset: -2px;
+}
+
+.area-card:nth-child(4),
+.area-card:nth-child(5) {
+  grid-column: span 3;
 }
 .area-card__action {
   margin-top: var(--spacing-md);
@@ -519,7 +541,7 @@ body.menu-open {
   margin-bottom: 0.75rem;
   line-height: 1.2;
 }
-.area-card p {
+.area-card p.area-card__preview {
   font-style: italic;
   font-size: 0.95rem;
   color: var(--ink-light);
@@ -528,11 +550,53 @@ body.menu-open {
   flex-grow: 1;
 }
 
+.area-card__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.area-card__list li {
+  font-size: 0.85rem;
+  color: var(--ink-light);
+  line-height: 1.5;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.area-card__list li strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.area-card__list li::before {
+  content: "•";
+  color: var(--terracotta);
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
 @media (max-width: 1024px) {
   .areas__grid { grid-template-columns: repeat(2, 1fr); }
+  .area-card,
+  .area-card:nth-child(4),
+  .area-card:nth-child(5) {
+    grid-column: span 1;
+  }
+  .area-card:nth-child(5) {
+    grid-column: span 2;
+  }
 }
 @media (max-width: 768px) {
   .areas__grid { grid-template-columns: 1fr; }
+  .area-card:nth-child(5) {
+    grid-column: span 1;
+  }
 }
 
 /* =============================================
@@ -1193,12 +1257,27 @@ body.menu-open {
   align-items: flex-end;
   margin-bottom: var(--spacing-lg);
 }
-.footer__name {
-  font-family: var(--font-headline);
-  font-size: 1.2rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--ink);
+.footer__logo {
+  display: block;
+  max-width: 250px;
+  height: auto;
+  margin-bottom: 0.35rem;
+}
+.footer__logo-group {
+  display: flex;
+  align-items: center;
+  gap: 1.15rem;
+  margin-bottom: 0.45rem;
+}
+.footer__logo-iso {
+  display: block;
+  height: 50px;
+  width: auto;
+}
+.footer__logo-text {
+  display: block;
+  height: 27px;
+  width: auto;
 }
 .footer__subtitle {
   font-style: italic;
@@ -1801,6 +1880,16 @@ body.menu-open {
   .contact__inner { grid-template-columns: 1fr; }
   .form__row { grid-template-columns: 1fr; }
 
+  .footer__logo-group {
+    gap: 0.9rem;
+    margin-bottom: 0.35rem;
+  }
+  .footer__logo-iso {
+    height: 42px;
+  }
+  .footer__logo-text {
+    height: 23px;
+  }
   .footer__bottom { flex-direction: column; align-items: flex-start; gap: var(--spacing-sm); }
   .footer__nav { flex-wrap: wrap; gap: var(--spacing-sm); }
 
@@ -1811,4 +1900,148 @@ body.menu-open {
     font-size: 0.78rem;
   }
   
+}
+
+
+/* =============================================
+   MODAL DE ÁREAS
+   ============================================= */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(14, 14, 14, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  padding: var(--spacing-md);
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-container {
+  background: var(--paper);
+  width: 100%;
+  max-width: 500px;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+  transform: translateY(20px);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+}
+
+.modal-overlay.active .modal-container {
+  transform: translateY(0);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  border-bottom: 1px solid var(--paper-dark);
+}
+
+.modal-title {
+  font-family: var(--font-headline);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--ink);
+  margin: 0;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: var(--ink-light);
+  cursor: pointer;
+  padding: 0.5rem;
+  margin: -0.5rem;
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-close:hover {
+  color: var(--terracotta);
+}
+
+.modal-content {
+  padding: var(--spacing-xl);
+  overflow-y: auto;
+}
+
+.modal-content p.area-card__preview {
+  font-size: 1.05rem;
+  color: var(--ink);
+  margin-bottom: var(--spacing-lg);
+  font-style: italic;
+  flex-grow: 0;
+}
+
+.modal-footer {
+  padding: var(--spacing-lg) var(--spacing-xl);
+  border-top: 1px solid var(--paper-dark);
+}
+
+.w-100 {
+  width: 100%;
+  justify-content: center;
+}
+
+
+/* Modal Typography Overrides */
+.modal-content .area-card__preview {
+  font-size: 1.15rem;
+  color: var(--ink);
+  margin-bottom: var(--spacing-xl);
+  line-height: 1.7;
+}
+
+.modal-content .area-card__list {
+  gap: 1.2rem;
+}
+
+.modal-content .area-card__list li {
+  font-size: 1.05rem;
+  color: var(--ink);
+  line-height: 1.6;
+  padding-left: 1.5rem;
+}
+
+.modal-content .area-card__list li::before {
+  font-size: 1.2rem;
+  top: -2px;
+}
+
+.modal-content .area-card__list li strong {
+  color: var(--ink);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 0.2rem;
+  font-size: 1.1rem;
+}
+
+/* Make modal header a bit more branded */
+.modal-header {
+  border-bottom: 2px solid var(--terracotta);
+  background: var(--paper-warm);
+  border-radius: 8px 8px 0 0;
+}
+
+.modal-title {
+  font-size: 1.7rem;
 }

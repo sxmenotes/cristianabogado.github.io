@@ -391,21 +391,19 @@ const asuntoInput = document.getElementById('asunto');
 const mensajeInput = document.getElementById('mensaje');
 
 const servicePlaceholders = {
-  'Familia': 'Consulta sobre Derecho de Familia',
-  'Derecho de Autor': 'Consulta sobre Propiedad Intelectual / Derecho de Autor',
-  'Civil': 'Consulta sobre Derecho Civil',
   'Laboral': 'Consulta sobre Derecho Laboral',
-  'Penal': 'Consulta sobre Derecho Penal',
-  'Consultoría': 'Consultoría General / Asesoría Legal'
+  'Familia': 'Consulta sobre Derecho de Familia',
+  'Civil': 'Consulta sobre Derecho Civil y Bienes Raíces',
+  'Policía Local': 'Consulta sobre Policía Local',
+  'Penal': 'Consulta sobre Derecho Penal'
 };
 
 const mensajePlaceholders = {
+  'Laboral': 'Describe tu situación laboral: despido, tutela, autodespido, etc...',
   'Familia': 'Describe tu situación familiar (divorcio, tuición, pensión, etc.)...',
-  'Derecho de Autor': 'Describe tu obra y el tipo de protección o problema que enfrentas...',
-  'Civil': 'Describe el contrato, la responsabilidad u obligación sobre la que necesitas asesoría...',
-  'Laboral': 'Describe tu situación laboral: despido, tutela, negociación, etc...',
-  'Penal': 'Describe los hechos brevemente (como imputado o víctima)...',
-  'Consultoría': 'Cuéntame sobre el tema que necesitas revisar o consultar...'
+  'Civil': 'Describe tu situación: arriendo, embargo, regularización, herencia, etc...',
+  'Policía Local': 'Describe el accidente, fraude o problema de consumidor...',
+  'Penal': 'Describe los hechos brevemente (como imputado o víctima)...'
 };
 
 pills.forEach(pill => {
@@ -527,11 +525,65 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // =============================================
-// AREA CARD CLICK -> AUTO-SELECT CONTACT SERVICE
+// AREA CARD CLICK -> MODAL -> CONTACT
 // =============================================
+const areasModal = document.getElementById('areasModal');
+const modalTitle = document.getElementById('modalTitle');
+const modalContent = document.getElementById('modalContent');
+const modalClose = document.getElementById('modalClose');
+const modalCtaBtn = document.getElementById('modalCtaBtn');
+
+function openModal(card) {
+  const service = card.dataset.service;
+  const title = card.querySelector('h3').innerHTML;
+  const preview = card.querySelector('.area-card__preview').outerHTML;
+  const details = card.querySelector('.area-card__details').innerHTML;
+
+  modalTitle.innerHTML = title;
+  modalContent.innerHTML = preview + details;
+  modalCtaBtn.dataset.service = service;
+
+  areasModal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  areasModal.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
 document.querySelectorAll('.area-card').forEach(card => {
-  const selectArea = () => {
-    const service = card.dataset.service;
+  card.addEventListener('click', () => openModal(card));
+  card.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      openModal(card);
+    }
+  });
+});
+
+if (modalClose) {
+  modalClose.addEventListener('click', closeModal);
+}
+
+if (areasModal) {
+  areasModal.addEventListener('click', (e) => {
+    if (e.target === areasModal) {
+      closeModal();
+    }
+  });
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && areasModal && areasModal.classList.contains('active')) {
+    closeModal();
+  }
+});
+
+if (modalCtaBtn) {
+  modalCtaBtn.addEventListener('click', () => {
+    const service = modalCtaBtn.dataset.service;
+    closeModal();
     if (service) {
       const targetPill = document.querySelector(`.pill[data-service="${service}"]`);
       if (targetPill) {
@@ -541,17 +593,10 @@ document.querySelectorAll('.area-card').forEach(card => {
       if (contactSection) {
         contactSection.scrollIntoView({ behavior: 'smooth' });
         setTimeout(() => {
-          mensajeInput.focus();
+          const mensajeInput = document.getElementById('mensaje');
+          if (mensajeInput) mensajeInput.focus();
         }, 500);
       }
     }
-  };
-
-  card.addEventListener('click', selectArea);
-  card.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      selectArea();
-    }
   });
-});
+}
