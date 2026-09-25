@@ -15,73 +15,43 @@
     {
       "source": "/index.html",
       "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "no-cache, no-store, must-revalidate"
-        }
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
       ]
     },
     {
-      "source": "/css/(.*)\\.css",
+      "source": "/css/(.*)",
       "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
     },
     {
-      "source": "/js/(.*)\\.js",
+      "source": "/js/(.*)",
       "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
     },
     {
       "source": "/assets/(.*)",
       "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
     },
     {
-      "source": "/(.*)\\.(?:jpg|jpeg|png|gif|webp|svg|ico|avif)",
+      "source": "/favicon.png",
       "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    },
-    {
-      "source": "/(.*)\\.(?:woff|woff2|ttf|otf|eot)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
     },
     {
       "source": "/sitemap.xml",
       "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=86400, s-maxage=86400"
-        }
+        { "key": "Cache-Control", "value": "public, max-age=86400, s-maxage=86400" }
       ]
     },
     {
       "source": "/robots.txt",
       "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=86400"
-        }
+        { "key": "Cache-Control", "value": "public, max-age=86400" }
       ]
     }
   ]
